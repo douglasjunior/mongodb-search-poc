@@ -1,0 +1,20 @@
+version: '3'
+services:
+
+  mongo:
+    image: mongo:4.4
+    container_name: mongo-test
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongo
+      - MONGO_INITDB_ROOT_PASSWORD=mongo
+    volumes:
+      - ./mongo:/data/db  
+    ports:
+       - 27017:27017
+    networks:
+      - production-network
+    restart: always
+
+networks:
+  production-network:
+    driver: bridge
