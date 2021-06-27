@@ -19,23 +19,15 @@ const accentMap = [
     'yÿ',
 ];
 
-if (!RegExp.escape) {
-    RegExp.escape = s => {
-        return String(s).replace(/[\\^$*+?.()|[\]{}]/g, '\\$&');
-    };
-}
-
 const createRegex = text => {
-    let textFold = '';
-
-    if (!text) return textFold;
+    if (!text) return '';
 
     const regexValue = RegExp.escape(text.toLowerCase());
-
-    for (let idx = 0; idx < regexValue.length; idx += 1) {
-        const charAt = regexValue.charAt(idx);
-        const subst = accentMap.find(acc => acc.includes(charAt));
-        textFold += subst ? `[${subst}]` : charAt;
+    
+    let textFold = '';
+    for (let char of regexValue) {
+        const subst = accentMap.find(acc => acc.includes(char));
+        textFold += subst ? `[${subst}]` : char;
     }
 
     console.log({ textFold });
@@ -44,8 +36,6 @@ const createRegex = text => {
 };
 
 tasksRouter.get('/', async (req, res, next) => {
-    console.log('foi!');
-
     const { search } = req.query;
 
     try {
@@ -69,8 +59,6 @@ tasksRouter.get('/', async (req, res, next) => {
 });
 
 tasksRouter.get('/aggregate', async (req, res, next) => {
-    console.log('foi!');
-
     const { search } = req.query;
 
     try {

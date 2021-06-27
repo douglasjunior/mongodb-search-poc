@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 
+import './js-polyfills';
 import tasksRouter from './tasksRouter';
 import { startMongo } from './mongoInstance';
 
@@ -19,4 +20,3 @@ app.use('/tasks', tasksRouter);
         console.error(err);
     }
 })();
-
